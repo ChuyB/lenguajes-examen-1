@@ -4,11 +4,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests suite
+ */
 public class MemoryTest {
 
   @Test
   @DisplayName("Allocates memory correctly")
-  public void allocatesCorrectly(){
+  public void allocatesCorrectly() {
     Memory memory = new Memory(128);
     boolean res = memory.allocateMemory("mock", 30);
 
@@ -20,7 +23,7 @@ public class MemoryTest {
 
   @Test
   @DisplayName("Doesn't allocate more memory than available")
-  public void doesntAllocatesAboveMax(){
+  public void doesntAllocatesAboveMax() {
     Memory memory = new Memory(64);
     boolean res = memory.allocateMemory("mock", 65);
 
@@ -29,7 +32,7 @@ public class MemoryTest {
 
   @Test
   @DisplayName("Doesn't reallocate memory")
-  public void doesntReallocate(){
+  public void doesntReallocate() {
     Memory memory = new Memory(16);
     memory.allocateMemory("mock", 8);
     boolean res = memory.allocateMemory("mock", 16);
@@ -39,7 +42,7 @@ public class MemoryTest {
 
   @Test
   @DisplayName("No space available for request")
-  public void noSpaceAvailable(){
+  public void noSpaceAvailable() {
     Memory memory = new Memory(16);
     memory.allocateMemory("mock-1", 8);
     boolean res = memory.allocateMemory("mock-2", 16);
@@ -49,7 +52,7 @@ public class MemoryTest {
 
   @Test
   @DisplayName("Returns number of blocks")
-  public void returnsNumberOfBlocks(){
+  public void returnsNumberOfBlocks() {
     int numberOfBlocks = 128;
     Memory memory = new Memory(numberOfBlocks);
     Assertions.assertEquals(numberOfBlocks, memory.getNumberOfBlocks());
@@ -57,7 +60,7 @@ public class MemoryTest {
 
   @Test
   @DisplayName("Deallocates correctly")
-  public void deallocatesCorrectly(){
+  public void deallocatesCorrectly() {
     Memory memory = new Memory(128);
     memory.allocateMemory("mock", 64);
     boolean res = memory.deallocateMemory("mock");
@@ -70,7 +73,7 @@ public class MemoryTest {
 
   @Test
   @DisplayName("Doesn't deallocate free space")
-  public void doesntDeallocateFreeSpace(){
+  public void doesntDeallocateFreeSpace() {
     Memory memory = new Memory(16);
     boolean res = memory.deallocateMemory("mock");
     Assertions.assertFalse(res);
@@ -79,7 +82,7 @@ public class MemoryTest {
 
   @Test
   @DisplayName("Coalesce two blocks")
-  public void coalesceBlocks(){
+  public void coalesceBlocks() {
     Memory memory = new Memory(32);
     memory.allocateMemory("mock-1", 8);
     memory.allocateMemory("mock-2", 8);
@@ -94,7 +97,7 @@ public class MemoryTest {
 
   @Test
   @DisplayName("Don't coalesce two blocks")
-  public void dontCoalesceBlocks(){
+  public void dontCoalesceBlocks() {
     Memory memory = new Memory(32);
     memory.allocateMemory("mock-1", 8);
     memory.allocateMemory("mock-2", 8);

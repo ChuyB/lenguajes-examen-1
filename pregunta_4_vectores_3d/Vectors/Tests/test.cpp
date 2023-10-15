@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "../Vectors/Vector.cpp"
 
+/**
+ * Vector test suite
+*/
 TEST(AddsTwoVectors, Addition) {
 	Vector v1(3.0, 1.0, 2.0);
 	Vector v2(1.0, 4.5, 3.0);

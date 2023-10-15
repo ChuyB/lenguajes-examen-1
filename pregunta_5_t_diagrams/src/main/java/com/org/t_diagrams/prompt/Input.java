@@ -1,21 +1,27 @@
 package com.org.t_diagrams.prompt;
 
 import com.org.t_diagrams.components.Diagram;
-import com.org.t_diagrams.components.Program;
-
 import java.util.Scanner;
 
-
+/**
+ * Manages user input
+ */
 public class Input {
 
-  private static void define(Diagram diagram, String[] args){
+  /**
+   * Defines a new program
+   * 
+   * @param diagram T Diagram
+   * @param args    Input arguments
+   */
+  private static void define(Diagram diagram, String[] args) {
     if (args.length > 3) {
       String program = args[1];
-      if (program.equalsIgnoreCase("PROGRAMA")){
+      if (program.equalsIgnoreCase("PROGRAMA")) {
         diagram.defineProgram(args[2], args[3]);
         return;
       }
-      if (program.equalsIgnoreCase("INTERPRETE")){
+      if (program.equalsIgnoreCase("INTERPRETE")) {
         diagram.defineInterpreter(args[2], args[3]);
         return;
       }
@@ -27,7 +33,13 @@ public class Input {
 
   }
 
-  private static void executable(Diagram diagram, String[] args){
+  /**
+   * Checks if a program is executable
+   * 
+   * @param diagram T Diagram
+   * @param args    Input arguments
+   */
+  private static void executable(Diagram diagram, String[] args) {
     if (args.length == 2) {
       String name = args[1];
       diagram.executable(name);
@@ -35,6 +47,9 @@ public class Input {
       System.out.println("Uso: EJECUTABLE <nombre>");
   }
 
+  /**
+   * Asks for user input, executes corresponding actions
+   */
   public static void exec() {
     Scanner scanner = new Scanner(System.in);
     String[] res;
@@ -46,7 +61,7 @@ public class Input {
       res = scanner.nextLine().split(" ");
       action = res[0].toUpperCase();
 
-      switch (action){
+      switch (action) {
         case "DEFINIR":
           define(diagram, res);
           break;

@@ -6,6 +6,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 
+/**
+ * Tests suite
+ */
 public class DiagramTest {
 
   private final PrintStream standardOut = System.out;
@@ -29,8 +32,7 @@ public class DiagramTest {
     Program newProgram = programs
         .stream()
         .filter(
-            program -> program.getName().equals(programName) && program.getLanguage().equals(progLanguage)
-        )
+            program -> program.getName().equals(programName) && program.getLanguage().equals(progLanguage))
         .findFirst()
         .orElse(null);
     Assertions.assertNotNull(newProgram);
@@ -50,8 +52,7 @@ public class DiagramTest {
     diagram.defineProgram(name, language);
     Assertions.assertEquals(
         "Ya existe definido un programa con el mismo nombre",
-        outputStreamCaptor.toString().trim()
-    );
+        outputStreamCaptor.toString().trim());
   }
 
   @Test
@@ -67,8 +68,8 @@ public class DiagramTest {
     Interpreter newInterpreter = interpreters
         .stream()
         .filter(
-            interpreter -> interpreter.getBaseLanguage().equals(baseLanguage) && interpreter.getLanguage().equals(language)
-        )
+            interpreter -> interpreter.getBaseLanguage().equals(baseLanguage)
+                && interpreter.getLanguage().equals(language))
         .findFirst()
         .orElse(null);
     Assertions.assertNotNull(newInterpreter);
@@ -88,8 +89,7 @@ public class DiagramTest {
     diagram.defineInterpreter(baseLanguage, language);
     Assertions.assertEquals(
         "Ya existe un interprete igual definido",
-        outputStreamCaptor.toString().trim()
-    );
+        outputStreamCaptor.toString().trim());
   }
 
   @Test
@@ -108,8 +108,7 @@ public class DiagramTest {
         .filter(
             translator -> translator.getBaseLanguage().equals(baseLanguage)
                 && translator.getFromLanguage().equals(fromLanguage)
-                && translator.getToLanguage().equals(toLanguage)
-        )
+                && translator.getToLanguage().equals(toLanguage))
         .findFirst()
         .orElse(null);
     Assertions.assertNotNull(newTranslator);
@@ -129,14 +128,13 @@ public class DiagramTest {
 
     diagram.defineTranslator(baseLanguage, fromLanguage, toLanguage);
     Assertions.assertEquals(
-       "Ya existe un traductor igual definido",
-        outputStreamCaptor.toString().trim()
-    );
+        "Ya existe un traductor igual definido",
+        outputStreamCaptor.toString().trim());
   }
 
   @Test
   @DisplayName("Determines if a program is executable")
-  public void determinesIfProgramIsExecutable(){
+  public void determinesIfProgramIsExecutable() {
     Diagram diagram = new Diagram();
     String programName = "prog";
     String languageA = "a";
@@ -152,13 +150,12 @@ public class DiagramTest {
     diagram.executable(programName);
     Assertions.assertEquals(
         "Sí, es posible ejecutar el programa 'prog'",
-        outputStreamCaptor.toString().trim()
-    );
+        outputStreamCaptor.toString().trim());
   }
 
   @Test
   @DisplayName("Determines if a program is not executable")
-  public void determinesIfProgramIsNotExecutable(){
+  public void determinesIfProgramIsNotExecutable() {
     Diagram diagram = new Diagram();
     String programName = "prog";
     String languageA = "a";
@@ -169,25 +166,23 @@ public class DiagramTest {
     diagram.executable(programName);
     Assertions.assertEquals(
         "No es posible ejecutar el programa 'prog'",
-        outputStreamCaptor.toString().trim()
-    );
+        outputStreamCaptor.toString().trim());
   }
 
   @Test
   @DisplayName("Program not found")
-  public void programNotFound(){
+  public void programNotFound() {
     Diagram diagram = new Diagram();
     String programName = "prog";
     diagram.executable(programName);
     Assertions.assertEquals(
         "No existe un programa 'prog' definido",
-        outputStreamCaptor.toString().trim()
-    );
+        outputStreamCaptor.toString().trim());
   }
 
   @Test
   @DisplayName("Interpreter and translator don't go in loop")
-  public void interpreterAndTranslatorNotInLoop(){
+  public void interpreterAndTranslatorNotInLoop() {
     Diagram diagram = new Diagram();
     String programName = "prog";
     String languageA = "a";
@@ -203,8 +198,7 @@ public class DiagramTest {
     diagram.executable(programName);
     Assertions.assertEquals(
         "No es posible ejecutar el programa 'prog'",
-        outputStreamCaptor.toString().trim()
-    );
+        outputStreamCaptor.toString().trim());
   }
 
   @AfterEach

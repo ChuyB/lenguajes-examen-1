@@ -3,17 +3,29 @@ package com.org.t_diagrams.components;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * T Diagram representation
+ */
 public class Diagram {
   private final ArrayList<Program> programs;
   private final ArrayList<Interpreter> interpreters;
   private final ArrayList<Translator> translators;
 
+  /**
+   * Constructor
+   */
   public Diagram() {
     programs = new ArrayList<>();
     interpreters = new ArrayList<>();
     translators = new ArrayList<>();
   }
 
+  /**
+   * Defines a program
+   * 
+   * @param name     Name of the program
+   * @param language Execution language
+   */
   public void defineProgram(String name, String language) {
     if (programs.stream().filter((program -> program.getName().equals(name)))
         .findFirst()
@@ -27,10 +39,17 @@ public class Diagram {
     System.out.printf("Se definió el programa '%s', ejecutable en '%s'\n", name, language);
   }
 
+  /**
+   * Defines a interpreter
+   * 
+   * @param baseLanguage Execution language
+   * @param language     Interpreted language
+   */
   public void defineInterpreter(String baseLanguage, String language) {
     Interpreter definedInterpreter = interpreters
         .stream()
-        .filter(interpreter -> interpreter.getBaseLanguage().equals(baseLanguage) && interpreter.getLanguage().equals(language))
+        .filter(interpreter -> interpreter.getBaseLanguage().equals(baseLanguage)
+            && interpreter.getLanguage().equals(language))
         .findFirst()
         .orElse(null);
     if (definedInterpreter != null) {
@@ -43,10 +62,18 @@ public class Diagram {
     System.out.printf("Se definió un intérprete para '%s', escrito en '%s'\n", language, baseLanguage);
   }
 
+  /**
+   * Deifnes a translator
+   * 
+   * @param baseLanguage Execution language
+   * @param fromLanguage Initial language
+   * @param toLanguage   Translated language
+   */
   public void defineTranslator(String baseLanguage, String fromLanguage, String toLanguage) {
     Translator definedTranslator = translators
         .stream()
-        .filter(translator -> translator.getFromLanguage().equals(fromLanguage) && translator.getToLanguage().equals(toLanguage) && translator.getBaseLanguage().equals(baseLanguage))
+        .filter(translator -> translator.getFromLanguage().equals(fromLanguage)
+            && translator.getToLanguage().equals(toLanguage) && translator.getBaseLanguage().equals(baseLanguage))
         .findFirst()
         .orElse(null);
 
@@ -57,9 +84,17 @@ public class Diagram {
 
     Translator translator = new Translator(baseLanguage, fromLanguage, toLanguage);
     translators.add(translator);
-    System.out.printf("Se definió un traductor de '%s' hacia '%s', escrito en '%s'\n", fromLanguage, toLanguage, baseLanguage);
+    System.out.printf("Se definió un traductor de '%s' hacia '%s', escrito en '%s'\n", fromLanguage, toLanguage,
+        baseLanguage);
   }
 
+  /**
+   * Checks if a language is executable
+   * 
+   * @param name  Name of the language
+   * @param block Blocks langauges that are checked before (prevents loops)
+   * @return true if language is executable, false otherwise
+   */
   private boolean execRecursive(String name, String block) {
     if (name.equalsIgnoreCase("LOCAL"))
       return true;
@@ -101,8 +136,14 @@ public class Diagram {
     return false;
   }
 
+  /**
+   * Checks if a program is executable
+   * 
+   * @param programName Name of the program
+   */
   public void executable(String programName) {
-    Program program = programs.stream().filter(programS -> programS.getName().equals(programName)).findFirst().orElse(null);
+    Program program = programs.stream().filter(programS -> programS.getName().equals(programName)).findFirst()
+        .orElse(null);
     if (program == null) {
       System.out.printf("No existe un programa '%s' definido\n", programName);
       return;

@@ -5,13 +5,25 @@ import com.org.app.resources.Memory;
 
 import java.util.*;
 
+/**
+ * Manages user input
+ */
 public class Input {
 
+  /**
+   * Prints execution help
+   */
   private static void printHelp() {
     System.out.println("usage: -b | --blocks <number_of_blocks>");
     System.exit(0);
   }
 
+  /**
+   * Parses execution parameters
+   * 
+   * @param args Execution parameters
+   * @return
+   */
   public static int getParameter(String[] args) {
     if (args.length < 2)
       printHelp();
@@ -24,14 +36,19 @@ public class Input {
 
     return param;
   }
+
+  /**
+   * Initializes memory simulator
+   * 
+   * @param numberOfBlocks Number of memory blocks
+   */
   public static void execute(int numberOfBlocks) {
     Scanner scanner = new Scanner(System.in);
     String action;
 
     Memory memory = new Memory(numberOfBlocks);
 
-    loop:
-    while (true) {
+    loop: while (true) {
       System.out.println("Ingrese la próxima instrucción");
       String[] res = scanner.nextLine().split(" ");
       action = res[0].toUpperCase();
@@ -65,7 +82,8 @@ public class Input {
           });
 
           System.out.println("Memoria asignada");
-          listOfAllocated.forEach((blockName, block) -> System.out.printf("%s: %s bloques\n", blockName, block.end - block.start + 1));
+          listOfAllocated.forEach(
+              (blockName, block) -> System.out.printf("%s: %s bloques\n", blockName, block.end - block.start + 1));
           break;
 
         case "LIBERAR":
