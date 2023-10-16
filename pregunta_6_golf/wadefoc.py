@@ -1,1 +1,1 @@
-from math import factorial as o,floor as m,log2 as l;b=lambda n,k:o(n)/(o(k)*o(n-k));p=lambda n,k:(1/n)*b(n,k)*b(n,k-1);f=lambda n:n if n<=1 else f(n-1)+f(n-2);w=lambda n:print(f(m(l(p(n+1,n-1)))+1));w(int(input().split()[0]))
+import sys;from math import factorial as o,floor as m,log2 as l;b=lambda n,k:o(n)/(o(k)*o(n-k));p=lambda n,k:(1/n)*b(n,k)*b(n,k-1);f=lambda n:n if n<=1 else f(n-1)+f(n-2);w=lambda n:print(f(m(l(p(n+1,n-1)))+1));w(int(sys.argv[1]))
